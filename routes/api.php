@@ -25,3 +25,5 @@ Route::get('test', function (Request $request) {
 Route::get('test1', function (Request $request) {
     return "string";
 });
+
+Route::apiResource('categories', [App\Http\Controllers\CategoryController::class]);
