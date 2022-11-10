@@ -21,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('test', function (Request $request) {
     return "string";
 });
+
+Route::get('test1', function (Request $request) {
+    return "string";
+});
