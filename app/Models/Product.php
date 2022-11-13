@@ -22,4 +22,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function getImageAttribute($value)
+    {
+        return env('APP_URL') . "/images/$value";
+        // asset("images/$value");
+    }
 }
