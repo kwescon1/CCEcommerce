@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Resources\CategoryResource;
+use Illuminate\Support\Facades\Response;
+use App\Http\Resources\CategoryProductResource;
 
 class CategoryController extends Controller
 {
@@ -14,6 +19,14 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        try {
+            $cats = Category::all();
+
+            return response()->success(CategoryResource::collection($cats));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->error($e->getMessage());
+        }
     }
 
     /**
@@ -36,6 +49,14 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
+        try {
+            $cat = Category::whereSlug($id)->with('products')->first();
+
+            return !$cat ? response()->notfound("Category not found") : response()->success(new CategoryProductResource($cat));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->error($e->getMessage());
+        }
     }
 
     /**

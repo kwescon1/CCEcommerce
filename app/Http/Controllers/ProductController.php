@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -14,6 +17,14 @@ class ProductController extends Controller
     public function index()
     {
         //
+        try {
+            $cats = Product::all();
+
+            return response()->success(ProductResource::collection($cats));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->error($e->getMessage());
+        }
     }
 
     /**
@@ -36,6 +47,14 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        try {
+            $product = Product::whereSlug($id)->with('category')->first();
+
+            return !$product ? response()->notfound("Product not found") : response()->success(new ProductResource($product));
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->error($e->getMessage());
+        }
     }
 
     /**
