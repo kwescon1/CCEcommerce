@@ -20,9 +20,10 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('quantity');
             $table->enum('status', ['in stock', 'out of stock']);
             $table->string('slug');
+            $table->string('image');
             $table->text('description');
 
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 
