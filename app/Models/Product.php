@@ -25,7 +25,6 @@ class Product extends Model
 
     public function getImageAttribute($value)
     {
-        return env('APP_URL') . "/images/$value";
-        // asset("images/$value");
+        return  asset("images/$value");
     }
 }
