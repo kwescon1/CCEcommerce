@@ -26,6 +26,6 @@ class Product extends Model
     public function getImageAttribute($value)
     {
         // return  asset("images/$value");
-        return  asset("images/$value");
+        return  asset("storage/images/$value");
     }
 }
